@@ -7,6 +7,8 @@ game_over=False
 while not game_over:
     for event in pg.event.get():
         print(event)
+        if event.type==pg.QUIT:
+            game_over=True
 
 pg.quit()
 quit()
