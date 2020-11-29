@@ -66,7 +66,7 @@ def gameLoop():  # creating a function
 
         while game_close == True:
                 dis.fill((255,255,255))
-                message("You Lost!  Press Q-Quit or C-Play Again", (255,0,0))
+                message("You Lost!  Press Q-Quit or R-Play Again", (255,0,0))
                 Your_score(Length_of_snake - 1,level)
                 pg.display.update()
 
@@ -79,7 +79,7 @@ def gameLoop():  # creating a function
                         if event.key == pg.K_q:
                             game_over = True
                             game_close = False
-                        if event.key == pg.K_c:
+                        if event.key == pg.K_r:
                             gameLoop()
 
         for event in pg.event.get():
@@ -104,7 +104,7 @@ def gameLoop():  # creating a function
         x1 += x1_change
         y1 += y1_change
         dis.fill(blue)
-        pg.draw.rect(dis, green , [foodx, foody, snake_block, snake_block])
+        pg.draw.rect(dis, red , [foodx, foody, snake_block, snake_block])
         snake_Head = []
         snake_Head.append(x1)
         snake_Head.append(y1)
