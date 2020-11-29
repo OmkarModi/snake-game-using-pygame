@@ -2,6 +2,11 @@ import pygame as pg
 import random
 import time
 
+pg.mixer.init()
+
+food_sound=pg.mixer.Sound('food.wav')
+lvl_sound=pg.mixer.Sound('level.wav')
+
 white = (255, 255, 255)
 yellow = (255, 255, 102)
 black = (0, 0, 0)
@@ -50,7 +55,7 @@ def gameLoop():  # creating a function
 
     snake_List = []
     Length_of_snake = 1
-    snake_speed = 10
+    snake_speed = 8
     level = 1
 
     foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
@@ -117,12 +122,14 @@ def gameLoop():  # creating a function
         pg.display.update()
 
         if x1 == foodx and y1 == foody:
+            food_sound.play()
             foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
             foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
             Length_of_snake += 1
             if ((Length_of_snake-1)%10==0):
                 snake_speed += 10
                 level=(Length_of_snake-1)/10 + 1
+                lvl_sound.play()
 
 
 
