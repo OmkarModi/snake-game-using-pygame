@@ -20,13 +20,15 @@ font_style = pg.font.SysFont("bahnschrift", 25)
 score_font = pg.font.SysFont("comicsansms", 35)
 
 snake_block = 10
-snake_speed = 30
+
 
 clock = pg.time.Clock()
 
-def Your_score(score):
+def Your_score(score,level):
     value = score_font.render("Your Score: " + str(score), True, yellow)
     dis.blit(value, [0, 0])
+    value_l = score_font.render("level : " + str(level), True, yellow)
+    dis.blit(value_l, [0, dis_height/15])
 
 def our_snake(snake_block, snake_list):
     for x in snake_list:
@@ -34,7 +36,7 @@ def our_snake(snake_block, snake_list):
 
 def message(msg,color):
     mesg = font_style.render(msg, True, color)
-    dis.blit(mesg, [dis_width/8, dis_height/3])
+    dis.blit(mesg, [dis_width/3, dis_height/3])
 
 def gameLoop():  # creating a function
     game_over = False
@@ -48,6 +50,8 @@ def gameLoop():  # creating a function
 
     snake_List = []
     Length_of_snake = 1
+    snake_speed = 10
+    level = 1
 
     foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
     foody = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
@@ -58,7 +62,7 @@ def gameLoop():  # creating a function
         while game_close == True:
                 dis.fill((255,255,255))
                 message("You Lost!  Press Q-Quit or C-Play Again", (255,0,0))
-                Your_score(Length_of_snake - 1)
+                Your_score(Length_of_snake - 1,level)
                 pg.display.update()
 
                 for event in pg.event.get():
@@ -108,7 +112,7 @@ def gameLoop():  # creating a function
                 game_close = True
 
         our_snake(snake_block, snake_List)
-        Your_score(Length_of_snake - 1)
+        Your_score(Length_of_snake - 1,level)
 
         pg.display.update()
 
@@ -116,6 +120,11 @@ def gameLoop():  # creating a function
             foodx = round(random.randrange(0, dis_width - snake_block) / 10.0) * 10.0
             foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0
             Length_of_snake += 1
+            if ((Length_of_snake-1)%10==0):
+                snake_speed += 10
+                level=(Length_of_snake-1)/10 + 1
+
+
 
         clock.tick(snake_speed)
 
